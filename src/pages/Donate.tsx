@@ -71,7 +71,7 @@ const Donate = () => {
                                     <div className="bg-white p-8 rounded-[2.5rem] relative z-10">
                                         <div className="flex justify-between items-center mb-6">
                                             <img src={siteConfig.brand.logoPath} alt="Ilmeza" className="h-8 object-contain" />
-                                            <img src={siteConfig.brand.donate.bankLogo} alt="Federal Bank" className="h-4 object-contain opacity-50" />
+                                            <img src={siteConfig.brand.donate.bankLogo} alt="Federal Bank" className="h-6 object-contain" />
                                         </div>
 
                                         <div className="relative aspect-square mb-8 rounded-2xl overflow-hidden border-2 border-slate-100 p-4">

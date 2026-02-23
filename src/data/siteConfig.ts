@@ -16,7 +16,7 @@ export const siteConfig = {
             qrPath: "/images/qr_donate.png",
             upiId: "ilmeza4612@fbl",
             bankName: "Federal Bank",
-            bankLogo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Federal_Bank_Logo.svg"
+            bankLogo: "/logo_federal_bank.png"
         },
         contact: {
             address: "Street No. 22, Zakir Nagar Okhla, Near Ashoka Park, New Delhi 110025",
