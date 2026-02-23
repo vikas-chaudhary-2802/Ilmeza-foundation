@@ -72,7 +72,7 @@ export const siteConfig = {
             description1: "Ilmeza Foundation is a Section - 8 non-profit organization dedicated to empowering individuals and communities by providing access to education, skills, healthcare, and social support systems.",
             description2: "Our initiatives focus on creating long-term impact through sustainable development programs, ensuring that no one is left behind. We work closely with communities, volunteers, and partners to bring meaningful change.",
             images: [
-                "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070",
+                "/images/who_we_are.jpg",
                 "https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070",
                 "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070",
                 "/images/impact_community.png"
