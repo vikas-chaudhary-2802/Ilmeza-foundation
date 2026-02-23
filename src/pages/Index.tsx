@@ -33,7 +33,7 @@ const Index = () => {
   return (
     <main className="overflow-x-hidden">
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center justify-center bg-primary overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center bg-primary overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070')] bg-cover bg-center opacity-20 scale-105" />
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-navy-light opacity-95" />
 
