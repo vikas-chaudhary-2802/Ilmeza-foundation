@@ -29,10 +29,41 @@ export const siteConfig = {
 
     home: {
         hero: {
+            slides: [
+                {
+                    title: "Educating Minds.",
+                    highlight: "Empowering Futures.",
+                    image: "/images/hero_education.png",
+                    description: "Providing quality education and holistic learning for underprivileged children across India."
+                },
+                {
+                    title: "Self-Reliance.",
+                    highlight: "Empowering Women.",
+                    image: "/images/hero_women.png",
+                    description: "Enabling financial independence and social dignity for women through advanced skill training."
+                },
+                {
+                    title: "Healing Hands.",
+                    highlight: "Healthy Communities.",
+                    image: "/images/hero_healthcare.png",
+                    description: "Ensuring basic health services and nutritional support reach every person in need."
+                },
+                {
+                    title: "Building Hope.",
+                    highlight: "Creating Futures.",
+                    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070",
+                    description: "Empowering underserved communities through education, skill development, and social initiatives."
+                }
+            ],
+            // Keeping legacy fields for backward compatibility if needed elsewhere, 
+            // but we'll primarily use 'slides' now.
             title: "Building Hope.",
             highlight: "Creating Futures.",
             description: "Empowering underserved communities through education, skill development, healthcare, and social upliftment.",
             images: [
+                "/images/hero_education.png",
+                "/images/hero_women.png",
+                "/images/hero_healthcare.png",
                 "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070",
             ]
         },

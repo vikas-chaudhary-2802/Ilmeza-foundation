@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import FadeIn from "@/components/FadeIn";
@@ -30,42 +31,63 @@ function StatCounter({ label, value }: { label: string; value: number }) {
 }
 
 const Index = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroSlides = siteConfig.home.hero.slides;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroSlides.length);
+    }, 6000); // Slightly longer for better readability
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
   return (
     <main className="overflow-x-hidden">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center bg-primary overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070')] bg-cover bg-center opacity-20 scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-navy-light opacity-95" />
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.image}
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-[4000ms] ease-in-out ${index === currentImageIndex ? "opacity-40 scale-110 translate-y-2" : "opacity-0 scale-100"
+              }`}
+            style={{ backgroundImage: `url('${slide.image}')` }}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-navy-light opacity-80" />
 
         <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
-          <FadeIn>
-            <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold tracking-widest uppercase mb-6">
-              Founded on Compassion
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-primary-foreground leading-[1.1] tracking-tight">
-              {siteConfig.home.hero.title}<br />
-              <span className="text-gradient-gold">{siteConfig.home.hero.highlight}</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="mt-8 text-xl md:text-2xl text-primary-foreground/70 font-sans-body leading-relaxed max-w-2xl mx-auto font-light">
-              {siteConfig.home.hero.description}
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.4}>
-            <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/donate">
-                <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans-body text-lg font-bold px-10 py-8 rounded-full shadow-2xl shadow-accent/20 transition-all duration-300 hover:scale-105">
-                  Donate Now
-                </Button>
-              </Link>
-              <Link to="/get-involved#volunteer">
-                <Button variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-white/10 bg-transparent font-sans-body text-lg px-10 py-8 rounded-full backdrop-blur-sm transition-all duration-300">
-                  Join Us
-                </Button>
-              </Link>
+          <div key={currentImageIndex} className="transition-all duration-1000 ease-in-out transform">
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-both">
+              <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold tracking-widest uppercase mb-6">
+                Founded on Compassion
+              </span>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-primary-foreground leading-[1.1] tracking-tight">
+                {heroSlides[currentImageIndex].title}<br />
+                <span className="text-gradient-gold">{heroSlides[currentImageIndex].highlight}</span>
+              </h1>
             </div>
-          </FadeIn>
+
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
+              <p className="mt-8 text-xl md:text-2xl text-primary-foreground/70 font-sans-body leading-relaxed max-w-2xl mx-auto font-light transition-all duration-700">
+                {heroSlides[currentImageIndex].description}
+              </p>
+            </div>
+
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+              <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
+                <Link to="/donate">
+                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans-body text-lg font-bold px-10 py-8 rounded-full shadow-2xl shadow-accent/20 transition-all duration-300 hover:scale-105">
+                    Donate Now
+                  </Button>
+                </Link>
+                <Link to="/get-involved#volunteer">
+                  <Button variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-white/10 bg-transparent font-sans-body text-lg px-10 py-8 rounded-full backdrop-blur-sm transition-all duration-300">
+                    Join Us
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
