@@ -10,8 +10,7 @@ const navLinks = [
   { to: "/about", label: "About" },
   { to: "/programs", label: "Programs" },
   { to: "/health-care", label: "Health Care" },
-  { to: "/tree-volution", label: "Tree-volution" },
-  { to: "/next-100", label: "Next 100" },
+  { to: "/events", label: "Events" },
   { to: "/contact", label: "Contact" },
 ];
 
