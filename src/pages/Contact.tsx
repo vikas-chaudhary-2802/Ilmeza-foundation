@@ -113,10 +113,10 @@ const Contact = () => {
                 <div className="pt-12">
                   <p className="text-sm font-bold text-foreground uppercase tracking-widest mb-6">Follow Our Progress</p>
                   <div className="flex gap-4">
-                    <a href="https://www.instagram.com/ilmezaofficial?igsh=MWV0ZGtkYXBjdzlpag==" className="w-12 h-12 rounded-2xl border border-border flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-white hover:border-accent transition-all duration-300">
+                    <a href={siteConfig.brand.socials.instagram} className="w-12 h-12 rounded-2xl border border-border flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-white hover:border-accent transition-all duration-300">
                       <Instagram className="w-6 h-6" />
                     </a>
-                    <a href="https://www.linkedin.com/company/ilmeza-foundation/" className="w-12 h-12 rounded-2xl border border-border flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-white hover:border-accent transition-all duration-300">
+                    <a href={siteConfig.brand.socials.linkedin} className="w-12 h-12 rounded-2xl border border-border flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-white hover:border-accent transition-all duration-300">
                       <Linkedin className="w-6 h-6" />
                     </a>
                   </div>

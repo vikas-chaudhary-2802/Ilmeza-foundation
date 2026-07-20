@@ -26,8 +26,11 @@ export default function TreeVolutionShowcase() {
               <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-800 text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
                 <Shield className="w-3.5 h-3.5 text-accent" /> Flagship Initiative
               </span>
-              <p className="text-sm font-sans-body font-bold tracking-wider uppercase text-accent mb-2">
+              <p className="text-sm font-sans-body font-bold tracking-wider uppercase text-accent mb-1">
                 Powering Tree-volution
+              </p>
+              <p className="text-sm font-sans-body font-bold tracking-wider uppercase text-emerald-600 mb-2">
+                1st June – 10th June
               </p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-tight">
                 Turning Ideas <br />

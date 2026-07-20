@@ -10,7 +10,7 @@ export const siteConfig = {
         tagline: "Building Hope. Creating Futures.",
         socials: {
             instagram: "https://www.instagram.com/ilmezaa?igsh=MWV0ZGtkYXBjdzlpag==",
-            linkedin: "#", // Add LinkedIn URL if available
+            linkedin: "https://www.linkedin.com/in/ilmeza-foundation-3b9257415/", 
             youtube: "https://youtube.com/@ilmezaofficial?si=hSZMaL4vRJq3vY-q",
             facebook: "https://www.facebook.com/share/1EHMnwhUEr/",
         },

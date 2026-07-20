@@ -19,6 +19,7 @@ import Next50 from "./pages/Next50";
 import Next50Dashboard from "./pages/Next50Dashboard";
 import HealthCare from "./pages/HealthCare";
 import TreeVolution from "./pages/TreeVolution";
+import Events from "./pages/Events";
 
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ function AppLayout() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/health-care" element={<HealthCare />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/tree-volution" element={<TreeVolution />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

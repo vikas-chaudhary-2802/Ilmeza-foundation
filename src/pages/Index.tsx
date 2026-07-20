@@ -77,11 +77,6 @@ const Index = () => {
 
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
               <div className="mt-8 flex flex-col sm:flex-row gap-6 justify-center">
-                <Link to="/next-100">
-                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans-body text-lg font-bold px-10 py-8 rounded-full shadow-2xl shadow-accent/20 transition-all duration-300 hover:scale-105">
-                    🎓 Register for Next 100
-                  </Button>
-                </Link>
                 <Link to="/get-involved#volunteer">
                   <Button variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-white/10 bg-transparent font-sans-body text-lg px-10 py-8 rounded-full backdrop-blur-sm transition-all duration-300">
                     Join Us
