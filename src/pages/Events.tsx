@@ -1,8 +1,11 @@
-import { Calendar, Sprout, ArrowRight, MapPin, Clock, HeartPulse, ShieldCheck, Activity } from "lucide-react";
+import { Calendar, Sprout, ArrowRight, MapPin, Clock, ShieldCheck, Activity, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import TreeVolutionShowcase from "@/components/TreeVolutionShowcase";
-import breastCancerEventImg from "@/assets/breast-cancer-event.jpeg";
+import breastCancerPhoto1 from "@/assets/breast-cancer-conference-1.jpeg";
+import breastCancerPhoto2 from "@/assets/breast-cancer-conference-2.jpeg";
+import breastCancerPhoto3 from "@/assets/breast-cancer-conference-3.jpeg";
+import breastCancerPhoto4 from "@/assets/breast-cancer-conference-4.jpeg";
 
 export default function Events() {
   return (
@@ -27,36 +30,53 @@ export default function Events() {
         </div>
       </section>
 
-      {/* Upcoming Event Section: Breast Cancer Awareness */}
+      {/* Event Recap Section: Breast Cancer Awareness */}
       <section className="py-24 bg-white relative overflow-hidden" id="upcoming">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-50/50 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-50/40 rounded-full blur-[100px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <p className="text-xs font-sans-body font-bold tracking-[0.25em] uppercase text-rose-600">
-              Upcoming Event
+              Event Recap
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-tight">
               Regional Breast Cancer Awareness & Community Health Conference 2026
             </h2>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            {/* Visual Panel */}
+
+            {/* Visual Panel: Photo Gallery */}
             <div className="lg:col-span-5 relative group">
               <div className="absolute -inset-4 rounded-3xl border border-rose-100 translate-x-3 translate-y-3 -z-10 hidden md:block transition-transform duration-500 group-hover:translate-x-5 group-hover:translate-y-5" />
               <div className="relative overflow-hidden rounded-[2rem] shadow-2xl bg-white border border-rose-50">
-                <img 
-                  src={breastCancerEventImg} 
-                  alt="Breast Cancer Awareness Event"
-                  className="w-full h-auto object-contain transition-transform duration-700 hover:scale-105"
-                />
-                
-                {/* Floating contribution callout */}
+                <div className="grid grid-cols-3 grid-rows-2 gap-1.5 h-[420px] sm:h-[480px]">
+                  <img
+                    src={breastCancerPhoto1}
+                    alt="Ilmeza Foundation breast cancer awareness conference — inauguration"
+                    className="col-span-3 row-span-1 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <img
+                    src={breastCancerPhoto2}
+                    alt="Chief guests at the breast cancer awareness conference"
+                    className="col-span-1 row-span-1 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <img
+                    src={breastCancerPhoto3}
+                    alt="Speaker addressing attendees at the conference"
+                    className="col-span-1 row-span-1 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <img
+                    src={breastCancerPhoto4}
+                    alt="Students attending the community health awareness session"
+                    className="col-span-1 row-span-1 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                </div>
+
+                {/* Floating status callout */}
                 <div className="absolute top-6 left-6 py-2 px-5 rounded-full bg-rose-600 text-white font-sans-body font-bold text-sm shadow-xl flex items-center gap-2 border border-rose-500">
-                   <HeartPulse className="w-4 h-4" /> Health Initiative
+                   <CheckCircle2 className="w-4 h-4" /> Successfully Concluded
                 </div>
               </div>
             </div>
@@ -96,16 +116,16 @@ export default function Events() {
 
               <div className="space-y-4 text-foreground/80 font-sans-body font-light text-base leading-relaxed">
                 <p>
-                  Organized by <strong>Ilmeza Foundation</strong> under its Health Initiative, this conference is a collaborative platform dedicated to promoting breast cancer awareness, early detection, and community participation in improving women's health.
+                  Organized by <strong>Ilmeza Foundation</strong> under its Health Initiative, this conference brought together a collaborative platform dedicated to promoting breast cancer awareness, early detection, and community participation in improving women's health.
                 </p>
                 <p>
-                  The conference brings together government officials, healthcare professionals, medical practitioners, NGOs, educators, social activists, media representatives, and community leaders to discuss the importance of preventive healthcare and strengthen partnerships for future health initiatives.
+                  The conference brought together government officials, healthcare professionals, medical practitioners, NGOs, educators, social activists, media representatives, and community leaders to discuss the importance of preventive healthcare and strengthen partnerships for future health initiatives.
                 </p>
                 <p>
-                  We will showcase Ilmeza Foundation's journey in conducting awareness campaigns, training sessions, and community outreach programmes, while unveiling our future roadmap: medical camps, capacity-building programmes, and community-driven healthcare initiatives.
+                  We showcased Ilmeza Foundation's journey in conducting awareness campaigns, training sessions, and community outreach programmes, while unveiling our future roadmap: medical camps, capacity-building programmes, and community-driven healthcare initiatives.
                 </p>
                 <p className="font-medium text-rose-900 bg-rose-50 p-4 rounded-xl border-l-4 border-rose-400">
-                  Together, we aim to build a healthier, more informed, and compassionate society where every woman has access to awareness, timely screening, and quality healthcare.
+                  Together, we're building a healthier, more informed, and compassionate society where every woman has access to awareness, timely screening, and quality healthcare.
                 </p>
               </div>
 
