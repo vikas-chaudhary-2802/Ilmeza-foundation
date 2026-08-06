@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowRight, Instagram, Linkedin, Youtube, Facebook, ShieldCheck, Award, Navigation } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 
-const MAPS_URL = "https://maps.app.goo.gl/D4YrqNKybvaBVyox9";
-const MAPS_EMBED = "https://www.google.com/maps?q=28.5904257,77.3318151&z=16&hl=en&output=embed";
+// Points to the Noida office. If you have an exact Google Maps pin link, you can
+// paste its coordinates in the `q=` value below for a precise marker.
+const MAPS_QUERY = "B-10, Sector 2, Noida, Uttar Pradesh 201301";
+const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAPS_QUERY)}`;
+const MAPS_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(MAPS_QUERY)}&z=16&hl=en&output=embed`;
 
 const quickLinks = [
   { to: "/about", label: "About Us" },
