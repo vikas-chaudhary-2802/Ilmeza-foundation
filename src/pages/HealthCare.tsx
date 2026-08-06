@@ -2,326 +2,245 @@ import { siteConfig } from "@/data/siteConfig";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Stethoscope, Users, CheckCircle2, ArrowRight, Activity, ShieldCheck, Microscope } from "lucide-react";
+import {
+  Heart, Stethoscope, Users, CheckCircle2, ArrowRight, ShieldCheck,
+  HandHeart, Megaphone, Handshake, Ribbon,
+} from "lucide-react";
+
+const involveIcons = [Users, Handshake, Heart, Megaphone];
+const focusPhotos = ["/images/gallery/health-awareness.jpg", "/images/gallery/women-seated.jpg"];
 
 const HealthCare = () => {
-    const { healthCare } = siteConfig;
+  const { healthCare } = siteConfig;
 
-    return (
-        <div className="min-h-screen pt-24 pb-20 overflow-hidden bg-white">
-            {/* ─── Hero Section ────────────────────────────────────────── */}
-            <section className="relative pt-20 pb-32 lg:pt-32 lg:pb-48 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-[#fdfaf5] -z-10" />
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -z-10 skew-x-12 translate-x-20" />
-                
-                <div className="container mx-auto px-4 lg:px-8">
-                    <div className="max-w-4xl mx-auto text-center relative">
-                        <FadeIn>
-                            <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-bold tracking-[0.2em] text-accent uppercase bg-accent/10 rounded-full border border-accent/20">
-                                <Activity className="w-4 h-4" />
-                                <span>Health Initiative</span>
-                            </div>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif-display font-bold text-primary mb-8 leading-[0.9] tracking-tighter">
-                                {healthCare.title}
-                            </h1>
-                            <p className="text-xl md:text-2xl font-sans-body text-foreground/70 max-w-2xl mx-auto mb-12 leading-relaxed font-light italic">
-                                "{healthCare.subtitle}"
-                            </p>
-                            <div className="flex flex-wrap justify-center gap-6">
-                                <Link to="/get-involved">
-                                    <Button className="bg-primary text-white hover:bg-primary/90 px-10 py-7 rounded-full text-lg font-bold shadow-2xl shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
-                                        Join Our Cause
-                                    </Button>
-                                </Link>
-                                <Link to="/donate">
-                                    <Button variant="outline" className="border-accent text-accent hover:bg-accent/5 px-10 py-7 rounded-full text-lg font-bold transition-all duration-300">
-                                        Support Initiative
-                                    </Button>
-                                </Link>
-                            </div>
-                        </FadeIn>
-                    </div>
+  return (
+    <main className="pt-20 bg-white">
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden bg-[hsl(226,40%,98%)]">
+        <div className="absolute top-10 -right-24 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        <div className="container mx-auto px-4 lg:px-8 py-16 md:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <FadeIn direction="right">
+              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-bold tracking-[0.18em] text-accent uppercase bg-accent/10 rounded-full">
+                <Ribbon className="w-4 h-4" /> Ilmeza Women Health Initiative
+              </div>
+              <h1 className="text-3xl md:text-5xl font-serif font-extrabold text-primary leading-[1.1]">
+                {healthCare.title}
+              </h1>
+              <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-xl">
+                {healthCare.subtitle}
+              </p>
+              <p className="mt-5 text-primary/80 leading-relaxed max-w-xl">{healthCare.mission}</p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link to="/join">
+                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90 h-12 px-7 rounded-md text-base font-bold shadow-md">
+                    <HandHeart size={18} className="mr-2" /> Volunteer With Us
+                  </Button>
+                </Link>
+                <Link to="/donate">
+                  <Button variant="outline" className="h-12 px-7 rounded-md text-base font-bold border-2 border-primary/20 text-primary hover:bg-primary hover:text-white">
+                    Support This Cause
+                  </Button>
+                </Link>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="left" delay={0.15}>
+              <div className="relative">
+                <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+                  <img src="/images/gallery/women-listening.jpg" alt="Women at an Ilmeza health awareness session" className="w-full h-[360px] md:h-[440px] object-cover" />
                 </div>
-
-                {/* Decorative Elements */}
-                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" />
-                <div className="absolute top-1/4 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-[100px]" />
-            </section>
-
-            {/* ─── Mission & Vision ────────────────────────────────────── */}
-            <section className="py-24 -mt-20">
-                <div className="container mx-auto px-4 lg:px-8">
-                    <div className="grid lg:grid-cols-12 gap-12 items-center bg-white glass-panel p-8 md:p-16 border-accent/10">
-                        <div className="lg:col-span-7">
-                            <FadeIn direction="left">
-                                <h2 className="text-4xl md:text-5xl font-serif-display font-bold text-primary mb-8 tracking-tight">
-                                    Our Commitment to <span className="text-accent italic">Every Woman</span>
-                                </h2>
-                                <p className="text-xl text-foreground/70 leading-relaxed font-light mb-10">
-                                    {healthCare.mission}
-                                </p>
-                                <div className="grid sm:grid-cols-2 gap-8">
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                            <ShieldCheck className="w-6 h-6 text-accent" />
-                                        </div>
-                                        <div>
-                                            <h4 className="font-serif-display text-xl font-bold text-primary mb-1">Preventive Care</h4>
-                                            <p className="text-sm text-foreground/60">Early screening protocols.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                            <Microscope className="w-6 h-6 text-primary" />
-                                        </div>
-                                        <div>
-                                            <h4 className="font-serif-display text-xl font-bold text-primary mb-1">Expert Diagnosis</h4>
-                                            <p className="text-sm text-foreground/60">Collaboration with medical pros.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </FadeIn>
-                        </div>
-                        <div className="lg:col-span-5">
-                            <FadeIn direction="right" delay={0.2}>
-                                <div className="relative group">
-                                    <div className="absolute -inset-2 bg-accent/20 rounded-[2.5rem] blur-xl group-hover:bg-accent/30 transition-all duration-500" />
-                                    <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-3xl border-4 border-white">
-                                        <img 
-                                            src="/images/hero_healthcare.png" 
-                                            alt="Healthcare Initiative" 
-                                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
-                                        <div className="absolute bottom-8 left-8 right-8">
-                                            <p className="text-white font-serif-display text-2xl font-bold leading-tight">
-                                                Building a Strong Nation through Healthy Families
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </FadeIn>
-                        </div>
-                    </div>
+                <div className="absolute -bottom-5 left-6 bg-white rounded-2xl shadow-lg px-6 py-4 flex items-center gap-3">
+                  <ShieldCheck className="w-9 h-9 text-accent" />
+                  <p className="text-sm font-semibold text-primary leading-tight">Early detection<br />saves lives.</p>
                 </div>
-            </section>
-
-            {/* ─── Importance Stats ───────────────────────────────────── */}
-            <section className="py-24 bg-primary relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-noise" />
-                <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
-                        <FadeIn direction="left">
-                            <h2 className="text-4xl md:text-6xl font-serif-display font-bold text-white mb-8 leading-tight">
-                                {healthCare.importance.title}
-                            </h2>
-                            <p className="text-xl text-white/70 leading-relaxed mb-10 font-light max-w-xl">
-                                {healthCare.importance.description}
-                            </p>
-                            <div className="inline-block bg-accent/20 border-l-4 border-accent p-8 rounded-r-2xl text-white italic text-xl font-medium shadow-2xl">
-                                "{healthCare.importance.highlight}"
-                            </div>
-                        </FadeIn>
-                        
-                        <FadeIn direction="right" delay={0.3}>
-                            <div className="grid sm:grid-cols-2 gap-6">
-                                {[
-                                    { icon: Heart, title: "Awareness", desc: "Breaking Myths & Stigma", color: "accent" },
-                                    { icon: Stethoscope, title: "Screening", desc: "Early Detection Camps", color: "white" },
-                                    { icon: Users, title: "Community", desc: "Grassroots Reach", color: "white" },
-                                    { icon: Activity, title: "Impact", desc: "Saving Lives Daily", color: "accent" }
-                                ].map((stat, i) => (
-                                    <div key={i} className={`p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.06] transition-all duration-300 group`}>
-                                        <stat.icon className={`w-12 h-12 mb-6 ${stat.color === 'accent' ? 'text-accent' : 'text-white'} group-hover:scale-110 transition-transform`} />
-                                        <h4 className="text-2xl font-serif-display font-bold text-white mb-2">{stat.title}</h4>
-                                        <p className="text-white/50 font-sans-body text-sm uppercase tracking-widest">{stat.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── Focus Areas ───────────────────────────────────────── */}
-            <section className="py-32 bg-[#fafafa]">
-                <div className="container mx-auto px-4 lg:px-8">
-                    <FadeIn className="text-center mb-24">
-                        <span className="text-accent font-bold tracking-[0.3em] uppercase text-sm mb-4 block">Medical Priorities</span>
-                        <h2 className="text-5xl md:text-7xl font-serif-display font-bold text-primary tracking-tighter">Our Focus Areas</h2>
-                    </FadeIn>
-
-                    <div className="space-y-40">
-                        {healthCare.focusAreas.map((area, index) => (
-                            <div key={area.id} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-20 items-center`}>
-                                <div className="lg:w-1/2">
-                                    <FadeIn direction={index % 2 === 0 ? 'left' : 'right'}>
-                                        <div className="mb-10">
-                                            <span className="text-7xl font-serif-display font-bold text-accent/10 block mb-2 leading-none">0{index + 1}</span>
-                                            <h3 className="text-4xl md:text-5xl font-serif-display font-bold text-primary mb-6">
-                                                {area.title}
-                                            </h3>
-                                            <div className="w-20 h-1.5 bg-accent mb-10 rounded-full" />
-                                        </div>
-                                        <div className="grid gap-6 mb-12">
-                                            {area.points.map((point, i) => (
-                                                <div key={i} className="flex items-center gap-4 bg-white p-5 rounded-2xl shadow-sm border border-black/5 group hover:border-accent/30 transition-colors">
-                                                    <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent group-hover:text-primary transition-colors text-accent">
-                                                        <CheckCircle2 className="w-5 h-5" />
-                                                    </div>
-                                                    <span className="text-lg text-foreground/80 font-medium">{point}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        
-                                        {area.id === "breast-cancer" && area.extraImage && (
-                                            <FadeIn delay={0.4}>
-                                                <div className="mt-16 bg-white rounded-[2rem] p-10 shadow-2xl border border-black/5 relative overflow-hidden group">
-                                                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                                    <h4 className="text-primary font-serif-display text-2xl font-bold mb-8 flex items-center gap-3">
-                                                        <Activity className="text-accent" />
-                                                        Self-Examination Protocol
-                                                    </h4>
-                                                    <div className="relative rounded-2xl overflow-hidden border border-black/5 bg-gray-50">
-                                                        <img src={area.extraImage} alt="BSE Guide" className="w-full h-auto" />
-                                                    </div>
-                                                    <p className="mt-6 text-sm text-foreground/50 text-center italic">
-                                                        Recommended monthly for early detection and peace of mind.
-                                                    </p>
-                                                </div>
-                                            </FadeIn>
-                                        )}
-                                    </FadeIn>
-                                </div>
-                                <div className="lg:w-1/2">
-                                    <FadeIn direction={index % 2 === 0 ? 'right' : 'left'}>
-                                        <div className="relative">
-                                            <div className="absolute -inset-6 bg-accent/5 rounded-[3rem] -rotate-3 blur-2xl" />
-                                            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.2)] border-[12px] border-white">
-                                                <img 
-                                                    src={area.image} 
-                                                    alt={area.title} 
-                                                    className="w-full aspect-[4/5] object-cover transition-transform duration-1000 hover:scale-105" 
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-60" />
-                                            </div>
-                                        </div>
-                                    </FadeIn>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── Our Approach ──────────────────────────────────────── */}
-            <section className="py-32 bg-white relative">
-                <div className="container mx-auto px-4 lg:px-8">
-                    <div className="flex flex-col lg:flex-row gap-20 items-end mb-24">
-                        <FadeIn direction="left" className="lg:w-1/2">
-                            <span className="text-accent font-bold tracking-[0.3em] uppercase text-sm mb-4 block">Strategic Reach</span>
-                            <h2 className="text-5xl md:text-6xl font-serif-display font-bold text-primary tracking-tight">{healthCare.approach.title}</h2>
-                        </FadeIn>
-                        <FadeIn direction="right" className="lg:w-1/2 pb-2">
-                            <p className="text-xl text-foreground/60 leading-relaxed font-light">{healthCare.approach.description}</p>
-                        </FadeIn>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {healthCare.approach.items.map((item, index) => (
-                            <FadeIn key={index} delay={index * 0.1}>
-                                <div className="p-10 rounded-3xl bg-[#f8f9fa] border border-black/5 hover:bg-primary hover:text-white hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full">
-                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:bg-accent transition-colors">
-                                        <Stethoscope className="w-7 h-7 text-accent group-hover:text-primary transition-colors" />
-                                    </div>
-                                    <p className="text-xl font-medium leading-relaxed mb-6 flex-grow">{item}</p>
-                                    <div className="w-10 h-1 bg-accent/30 group-hover:bg-accent rounded-full transition-colors" />
-                                </div>
-                            </FadeIn>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── Impact Vision ─────────────────────────────────────── */}
-            <section className="py-32 relative">
-                <div className="container mx-auto px-4 lg:px-8">
-                    <div className="bg-primary rounded-[4rem] p-12 md:p-24 text-white relative overflow-hidden shadow-[0_50px_120px_-30px_rgba(26,34,56,0.4)]">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -mr-48 -mt-48" />
-                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-[120px] -ml-48 -mb-48" />
-                        
-                        <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
-                            <FadeIn direction="left">
-                                <h2 className="text-5xl md:text-7xl font-serif-display font-bold mb-8 tracking-tighter">
-                                    Our <span className="text-accent italic text-6xl md:text-8xl block mt-2">Impact Vision</span>
-                                </h2>
-                                <p className="text-xl text-white/60 font-light leading-relaxed">
-                                    Building a community where women feel confident, informed, and supported in their health journeys.
-                                </p>
-                            </FadeIn>
-                            
-                            <FadeIn direction="right" delay={0.2}>
-                                <div className="space-y-6">
-                                    {healthCare.impact.items.map((item, index) => (
-                                        <div key={index} className="flex gap-6 items-center bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
-                                            <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center flex-shrink-0 text-accent text-2xl font-serif-display font-bold border border-accent/20">
-                                                {index + 1}
-                                            </div>
-                                            <p className="text-xl text-white/90 leading-tight font-medium">{item}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </FadeIn>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── Call to Action ────────────────────────────────────── */}
-            <section className="py-32 relative overflow-hidden">
-                <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
-                    <FadeIn>
-                        <div className="max-w-4xl mx-auto">
-                            <span className="text-accent font-bold tracking-[0.4em] uppercase text-sm mb-6 block">Join the movement</span>
-                            <h2 className="text-5xl md:text-7xl font-serif-display font-bold text-primary mb-10 tracking-tight">
-                                {healthCare.getInvolved.footer}
-                            </h2>
-                            <p className="text-2xl text-foreground/50 mb-16 font-light max-w-2xl mx-auto">
-                                {healthCare.getInvolved.description}
-                            </p>
-                            
-                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
-                                {healthCare.getInvolved.items.map((item, index) => (
-                                    <div key={index} className="bg-white border border-black/5 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-accent/20 transition-all duration-300">
-                                        <h4 className="font-bold text-primary text-sm uppercase tracking-widest mb-2">{item.label}</h4>
-                                        <p className="text-foreground/60 text-sm leading-snug">{item.text}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="flex flex-col md:flex-row justify-center gap-6">
-                                <Link to="/get-involved">
-                                    <Button className="bg-primary text-white hover:bg-primary/90 px-14 py-8 rounded-full text-xl font-bold shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
-                                        Get Involved
-                                        <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                                    </Button>
-                                </Link>
-                                <Link to="/donate">
-                                    <Button variant="outline" className="border-accent text-accent hover:bg-accent/5 px-14 py-8 rounded-full text-xl font-bold transition-all duration-500 hover:-translate-y-2">
-                                        Donate Now
-                                    </Button>
-                                </Link>
-                            </div>
-                        </div>
-                    </FadeIn>
-                </div>
-                
-                {/* Background Decorations */}
-                <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 -ml-64" />
-                <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 -mr-64" />
-            </section>
+              </div>
+            </FadeIn>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* ── Why it matters ── */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <FadeIn direction="right" className="lg:col-span-6">
+              <img src="/images/gallery/health-session.jpg" alt="Community health session" className="rounded-3xl w-full h-[380px] object-cover shadow-lg" />
+            </FadeIn>
+            <FadeIn direction="left" className="lg:col-span-6">
+              <span className="text-xs font-bold tracking-[0.18em] uppercase text-accent">Why This Matters</span>
+              <h2 className="mt-3 text-2xl md:text-4xl font-serif font-bold text-primary leading-tight">
+                {healthCare.importance.title}
+              </h2>
+              <p className="mt-5 text-muted-foreground leading-relaxed">{healthCare.importance.description}</p>
+              <div className="mt-6 border-l-4 border-accent bg-[hsl(226,40%,98%)] rounded-r-xl p-5">
+                <p className="text-primary font-medium italic">{healthCare.importance.highlight}</p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Focus areas ── */}
+      <section className="py-16 md:py-24 bg-[hsl(226,40%,98%)]">
+        <div className="container mx-auto px-4 lg:px-8">
+          <FadeIn className="max-w-2xl mb-14">
+            <span className="text-xs font-bold tracking-[0.18em] uppercase text-accent">Our Focus</span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-serif font-bold text-primary">
+              Two Cancers. One Preventable Story.
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Breast and cervical cancer are among the leading causes of death among women in India —
+              yet both are highly treatable when caught early. Here's where we focus.
+            </p>
+          </FadeIn>
+
+          <div className="space-y-16">
+            {healthCare.focusAreas.map((area, index) => (
+              <div key={area.id} className={`grid lg:grid-cols-2 gap-10 lg:gap-14 items-center ${index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+                <FadeIn direction={index % 2 === 0 ? "right" : "left"}>
+                  <div className="relative rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                    <img src={focusPhotos[index] || area.image} alt={area.title} className="w-full h-[320px] md:h-[400px] object-cover" />
+                    <span className="absolute top-4 left-4 bg-white/95 text-accent text-xs font-bold px-3 py-1.5 rounded-full">
+                      Focus 0{index + 1}
+                    </span>
+                  </div>
+                </FadeIn>
+
+                <FadeIn direction={index % 2 === 0 ? "left" : "right"}>
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-primary">{area.title}</h3>
+                  <div className="w-16 h-1.5 bg-accent rounded-full mt-4 mb-6" />
+                  <div className="space-y-3">
+                    {area.points.map((point, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className="mt-0.5 w-6 h-6 rounded-md bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </span>
+                        <span className="text-primary/80 leading-relaxed">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {area.id === "breast-cancer" && area.extraImage && (
+                    <div className="mt-8 bg-white rounded-2xl p-6 border border-border/60 shadow-sm">
+                      <h4 className="text-primary font-serif font-bold flex items-center gap-2 mb-4">
+                        <Stethoscope className="w-5 h-5 text-accent" /> Breast Self-Examination Guide
+                      </h4>
+                      <img src={area.extraImage} alt="Breast self-examination guide" className="w-full rounded-xl border border-border/60" />
+                      <p className="mt-3 text-sm text-muted-foreground text-center italic">
+                        Recommended monthly — a few minutes that can make all the difference.
+                      </p>
+                    </div>
+                  )}
+                </FadeIn>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Approach ── */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-10">
+            <FadeIn className="lg:col-span-1">
+              <span className="text-xs font-bold tracking-[0.18em] uppercase text-accent">How We Work</span>
+              <h2 className="mt-3 text-3xl md:text-4xl font-serif font-bold text-primary leading-tight">{healthCare.approach.title}</h2>
+              <p className="mt-4 text-muted-foreground leading-relaxed">{healthCare.approach.description}</p>
+            </FadeIn>
+            <div className="lg:col-span-2 grid sm:grid-cols-2 gap-5">
+              {healthCare.approach.items.map((item, index) => (
+                <FadeIn key={index} delay={index * 0.08}>
+                  <div className="card-lift h-full bg-white rounded-2xl p-6 border border-border/60 shadow-sm flex gap-4">
+                    <span className="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                      <Stethoscope className="w-5 h-5" />
+                    </span>
+                    <p className="text-primary/85 font-medium leading-relaxed">{item}</p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Impact vision ── */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="relative rounded-[2.5rem] overflow-hidden bg-navy-gradient p-10 md:p-16">
+            <div className="absolute inset-0 brand-dots opacity-15" />
+            <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+              <FadeIn direction="right">
+                <span className="text-xs font-bold tracking-[0.18em] uppercase text-cyan">{healthCare.impact.title}</span>
+                <h2 className="mt-3 text-3xl md:text-4xl font-serif font-bold text-white leading-tight">
+                  The Change We're Working Toward
+                </h2>
+                <p className="mt-4 text-white/75 leading-relaxed">
+                  A community where women feel confident, informed, and supported in every step of their health journey.
+                </p>
+              </FadeIn>
+              <FadeIn direction="left" delay={0.15}>
+                <div className="space-y-4">
+                  {healthCare.impact.items.map((item, index) => (
+                    <div key={index} className="flex gap-4 items-center bg-white/5 border border-white/10 rounded-2xl p-5">
+                      <span className="w-11 h-11 rounded-xl bg-cyan/15 text-cyan flex items-center justify-center shrink-0 font-serif font-bold">
+                        {index + 1}
+                      </span>
+                      <p className="text-white/90 leading-snug font-medium">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Get involved ── */}
+      <section className="py-16 md:py-24 bg-[hsl(226,40%,98%)]">
+        <div className="container mx-auto px-4 lg:px-8">
+          <FadeIn className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold tracking-[0.18em] uppercase text-accent">{healthCare.getInvolved.title}</span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-serif font-bold text-primary">Be Part of This Life-Saving Work</h2>
+            <p className="mt-4 text-muted-foreground">{healthCare.getInvolved.description}</p>
+          </FadeIn>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+            {healthCare.getInvolved.items.map((item, index) => {
+              const Icon = involveIcons[index % involveIcons.length];
+              return (
+                <FadeIn key={index} delay={index * 0.08}>
+                  <div className="card-lift h-full bg-white rounded-2xl p-7 border border-border/60 shadow-sm text-center">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-serif font-bold text-primary mb-1.5">{item.label}</h4>
+                    <p className="text-sm text-muted-foreground leading-snug">{item.text}</p>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+          <FadeIn className="text-center">
+            <p className="text-lg font-serif font-semibold text-primary italic mb-7 max-w-2xl mx-auto">
+              {healthCare.getInvolved.footer}
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link to="/join">
+                <Button className="bg-accent text-accent-foreground hover:bg-accent/90 h-12 px-8 rounded-md text-base font-bold">
+                  Get Involved <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+              <Link to="/donate">
+                <Button variant="outline" className="h-12 px-8 rounded-md text-base font-bold border-2 border-primary/20 text-primary hover:bg-primary hover:text-white">
+                  <Heart size={18} className="mr-2 fill-current" /> Donate Now
+                </Button>
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default HealthCare;

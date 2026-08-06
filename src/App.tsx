@@ -6,11 +6,18 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SocialRail from "@/components/SocialRail";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Impact from "./pages/Impact";
 import GetInvolved from "./pages/GetInvolved";
+import JoinUs from "./pages/JoinUs";
+import KnowledgeHub from "./pages/KnowledgeHub";
+import ArticlePage from "./pages/ArticlePage";
+import Publish from "./pages/Publish";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import Blog from "./pages/Blog";
@@ -41,6 +48,7 @@ function AppLayout() {
     <>
       <ScrollToTop />
       {!isStandalone && <Navbar />}
+      {!isStandalone && <SocialRail />}
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />
@@ -49,6 +57,12 @@ function AppLayout() {
         <Route path="/next-100/dashboard" element={<Next50Dashboard />} />
         <Route path="/impact" element={<Impact />} />
         <Route path="/get-involved" element={<GetInvolved />} />
+        <Route path="/join" element={<JoinUs />} />
+        <Route path="/knowledge-hub" element={<KnowledgeHub />} />
+        <Route path="/knowledge-hub/:slug" element={<ArticlePage />} />
+        <Route path="/publish" element={<Publish />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/blog" element={<Blog />} />

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,34 +15,41 @@
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
 
-    /* Premium Navy & Gold */
-    --primary: 222 47% 11%;
+    /* Ilmeza brand — Navy base, Orchid Purple accent, Cyan touches (from logo) */
+    --primary: 226 58% 20%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 42 65% 55%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 289 58% 56%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 40%;
+    --muted: 226 30% 96%;
+    --muted-foreground: 224 16% 40%;
     /* Slightly darker for better readability */
 
-    --accent: 42 65% 55%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 289 58% 56%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 226 30% 90%;
+    --input: 226 30% 90%;
+    --ring: 289 58% 56%;
 
     --radius: 0.75rem;
 
-    --gold: 42 65% 55%;
-    --gold-foreground: 42 80% 15%;
-    --navy: 222 47% 11%;
-    --navy-light: 222 30% 25%;
-    --cream: 36 25% 98%;
+    /* Brand tokens — 'gold' & 'forest' remapped to logo colors so legacy classes recolor */
+    --gold: 289 58% 56%;
+    --gold-foreground: 0 0% 100%;
+    --purple: 289 58% 56%;
+    --purple-foreground: 0 0% 100%;
+    --cyan: 191 100% 42%;
+    --cyan-foreground: 0 0% 100%;
+    --forest: 191 100% 42%;
+    --forest-light: 191 90% 55%;
+    --navy: 226 58% 20%;
+    --navy-light: 226 42% 32%;
+    --cream: 226 40% 98%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -61,14 +68,16 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 7%;
     --popover-foreground: 210 40% 98%;
-    --primary: 42 65% 55%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 289 58% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 226 32% 18%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 226 32% 18%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 42 65% 55%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 289 58% 60%;
+    --accent-foreground: 0 0% 100%;
+    --gold: 289 58% 60%;
+    --cyan: 191 100% 50%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
@@ -92,14 +101,15 @@
   h4,
   h5,
   h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     @apply tracking-tight leading-tight;
   }
 }
 
 @layer utilities {
   .font-serif-display {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .font-sans-body {
@@ -133,6 +143,45 @@
   .text-gradient-gold {
     @apply bg-gradient-to-r from-gold via-accent to-gold bg-clip-text text-transparent;
   }
+
+  /* ── Ilmeza brand helpers (logo: navy → purple → cyan) ── */
+  .text-gradient-brand {
+    background-image: linear-gradient(90deg, hsl(var(--cyan)), hsl(var(--purple)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-brand-gradient {
+    background-image: linear-gradient(120deg, hsl(var(--cyan)) 0%, hsl(var(--purple)) 100%);
+  }
+
+  .bg-navy-gradient {
+    background-image: linear-gradient(135deg, hsl(226 60% 14%) 0%, hsl(226 58% 22%) 55%, hsl(258 45% 26%) 100%);
+  }
+
+  .ring-brand {
+    box-shadow: 0 18px 40px -18px hsl(var(--purple) / 0.55);
+  }
+
+  .card-lift {
+    transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 50px -24px hsl(226 58% 20% / 0.45);
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em];
+    color: hsl(var(--purple));
+  }
+}
+
+/* Decorative dotted accent used across brand sections */
+.brand-dots {
+  background-image: radial-gradient(hsl(var(--purple) / 0.35) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
 }
 
 html {
