@@ -1,12 +1,37 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { allArticles, getArticle, formatArticleDate } from "@/data/articles";
 import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2, Tag, Linkedin } from "lucide-react";
 
+const DEFAULT_TITLE = "Ilmeza Foundation — Building Hope. Creating Futures.";
+
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticle(slug) : undefined;
+
+  // Set the browser tab title + share meta to this article's title.
+  useEffect(() => {
+    const setMeta = (selector: string, content: string) => {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute("content", content);
+    };
+    if (article) {
+      document.title = `${article.title} | Ilmeza Foundation`;
+      setMeta('meta[property="og:title"]', article.title);
+      setMeta('meta[name="twitter:title"]', article.title);
+      setMeta('meta[property="og:description"]', article.excerpt);
+      setMeta('meta[name="description"]', article.excerpt);
+      if (article.cover) {
+        setMeta('meta[property="og:image"]', article.cover);
+        setMeta('meta[name="twitter:image"]', article.cover);
+      }
+    }
+    return () => {
+      document.title = DEFAULT_TITLE;
+    };
+  }, [article]);
 
   if (!article) {
     return (

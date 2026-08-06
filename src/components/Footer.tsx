@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowRight, Instagram, Linkedin, Youtube, Facebook, ShieldCheck, Award, Navigation } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 
-const MAPS_URL = "https://maps.app.goo.gl/D4YrqNKybvaBVyox9";
+// Exact office pin (Ilmeza Foundation, Noida). "Get Directions" opens the Google
+// Maps place; the embed shows a precise marker at these coordinates.
+const MAPS_URL = "https://maps.app.goo.gl/bE9gVMM8jwW5Xs5UA";
 const MAPS_EMBED = "https://www.google.com/maps?q=28.5904257,77.3318151&z=16&hl=en&output=embed";
 
 const quickLinks = [
