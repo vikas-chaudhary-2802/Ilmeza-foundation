@@ -51,11 +51,11 @@ const Donate = () => {
                                 </p>
 
                                 <div className="space-y-6">
-                                    <div className="flex items-start gap-4 p-6 glass-card border-white/10 rounded-2xl bg-white/5">
-                                        <ShieldCheck className="text-accent w-8 h-8 shrink-0 mt-1" />
+                                    <div className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                                        <ShieldCheck className="text-cyan w-8 h-8 shrink-0 mt-1" />
                                         <div>
-                                            <h3 className="text-white font-bold text-lg mb-1">Secure & Transparent</h3>
-                                            <p className="text-primary-foreground/60 text-sm">Your donations go directly to the foundation's official {siteConfig.brand.donate.bankName} account.</p>
+                                            <h3 className="text-white font-bold text-lg mb-1">Secure &amp; Transparent</h3>
+                                            <p className="text-white/70 text-sm">Your donations go directly to the foundation's official {siteConfig.brand.donate.bankName} account.</p>
                                         </div>
                                     </div>
                                 </div>

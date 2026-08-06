@@ -59,6 +59,14 @@ export default {
           DEFAULT: "hsl(var(--forest))",
           light: "hsl(var(--forest-light))",
         },
+        purple: {
+          DEFAULT: "hsl(var(--purple))",
+          foreground: "hsl(var(--purple-foreground))",
+        },
+        cyan: {
+          DEFAULT: "hsl(var(--cyan))",
+          foreground: "hsl(var(--cyan-foreground))",
+        },
         cream: "hsl(var(--cream))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -72,8 +80,9 @@ export default {
         },
       },
       fontFamily: {
-        serif: ["Playfair Display", "serif"],
+        serif: ["Montserrat", "sans-serif"],
         sans: ["Inter", "sans-serif"],
+        display: ["Montserrat", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
