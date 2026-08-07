@@ -43,6 +43,173 @@ export type Article = {
 
 const articles: Article[] = [
   {
+    slug: "breast-cancer-awareness-saving-lives",
+    title: "Breast Cancer: Awareness is the First Step Towards Saving Lives",
+    category: "Health",
+    date: "2026-08-07",
+    author: "Dr. Anita Singh",
+    authorRole: "Healthcare Professional & Contributor, Ilmeza Foundation",
+    authorLinkedin: "https://www.linkedin.com/in/dr-anita-rani-555247363/",
+    readTime: "6 min read",
+    cover: "/images/gallery/health-awareness.jpg",
+    excerpt:
+      "Breast cancer is now the most commonly diagnosed cancer among women worldwide. Early awareness and timely diagnosis save lives — here is why breaking silence, knowing warning signs, and early action are crucial.",
+    content: [
+      { type: "h2", text: "Introduction" },
+      {
+        type: "p",
+        text:
+          "Breast cancer is no longer a disease that affects only a few families — it has become one of the most significant public health challenges of our time. Across the world, millions of women are diagnosed every year, and India is witnessing a steady rise in cases. Yet, despite advances in medical science, one factor continues to determine whether a woman survives breast cancer: early awareness and timely diagnosis.",
+      },
+      {
+        type: "p",
+        text:
+          "The encouraging news is that breast cancer, when detected in its early stages, is highly treatable. Unfortunately, many women continue to seek medical attention only after the disease has progressed, often because of fear, social stigma, misinformation, or lack of awareness.",
+      },
+      {
+        type: "quote",
+        text:
+          "Awareness is not merely about sharing information — it is about empowering women to listen to their bodies, seek help without hesitation, and understand that early action can save lives.",
+      },
+      { type: "h2", text: "The Growing Burden of Breast Cancer" },
+      {
+        type: "p",
+        text:
+          "Breast cancer is now the most commonly diagnosed cancer among women worldwide. According to the World Health Organization (WHO), an estimated 2.4 million women were diagnosed with breast cancer globally in 2024, and approximately 694,000 women lost their lives to the disease.",
+      },
+      {
+        type: "p",
+        text:
+          "India is experiencing a similar trend. According to the Global Cancer Observatory (GLOBOCAN), breast cancer is the most common cancer among Indian women, with an estimated 192,000 new cases reported in 2022, accounting for nearly one in every four cancers diagnosed among women in the country. It also remains one of the leading causes of cancer-related deaths among Indian women.",
+      },
+      {
+        type: "stats",
+        items: [
+          { value: "2.4M", label: "Global diagnoses annually (WHO 2024)" },
+          { value: "1,92,000", label: "New cases in India per year (GLOBOCAN 2022)" },
+          { value: "1 in 4", label: "Cancers diagnosed in Indian women" },
+        ],
+      },
+      {
+        type: "p",
+        text:
+          "These numbers are not merely statistics — they represent mothers, daughters, sisters, colleagues, and friends whose lives are profoundly affected by the disease.",
+      },
+      { type: "h2", text: "The Biggest Challenge Is Not the Disease — It Is Late Detection" },
+      {
+        type: "p",
+        text:
+          "One of the greatest challenges in India is that many women are diagnosed at advanced stages of breast cancer. Unlike many illnesses, breast cancer often begins without pain. A painless lump, subtle skin changes, nipple discharge, or changes in breast shape may be ignored for weeks or even months. Social hesitation, fear of diagnosis, financial concerns, and misconceptions often delay medical consultation, reducing the chances of successful treatment.",
+      },
+      {
+        type: "quote",
+        text:
+          "Early detection significantly improves survival rates and often allows for less aggressive treatment. Awareness, therefore, becomes as important as treatment itself.",
+      },
+      { type: "h2", text: "Recognizing the Early Warning Signs" },
+      {
+        type: "p",
+        text:
+          "Every woman should be familiar with the normal appearance and feel of her breasts. Seek medical advice if you notice:",
+      },
+      {
+        type: "list",
+        items: [
+          "A lump or thickening in the breast or underarm",
+          "Change in breast size or shape",
+          "Skin dimpling or puckering",
+          "Redness or persistent swelling",
+          "Nipple inversion or unusual discharge",
+          "Persistent pain in one area of the breast",
+        ],
+      },
+      {
+        type: "p",
+        text:
+          "Most breast lumps are not cancer, but every new lump should be evaluated by a qualified healthcare professional.",
+      },
+      { type: "h2", text: "Who Is at Risk?" },
+      {
+        type: "p",
+        text:
+          "Although breast cancer is more common with increasing age, approximately 80% of cases occur in women without any specific risk factors other than being female and growing older. Some factors that may increase risk include:",
+      },
+      {
+        type: "list",
+        items: [
+          "Family history of breast or ovarian cancer",
+          "Obesity and physical inactivity",
+          "Alcohol consumption",
+          "Late pregnancy or having no children",
+          "Hormonal factors and increasing age",
+        ],
+      },
+      {
+        type: "p",
+        text:
+          "However, it is equally important to remember that having no risk factors does not mean having no risk.",
+      },
+      { type: "h2", text: "Awareness Saves Lives" },
+      {
+        type: "p",
+        text:
+          "Awareness is the most affordable and effective tool available to every community. Women should:",
+      },
+      {
+        type: "list",
+        items: [
+          "Become familiar with their breasts and report any unusual changes promptly.",
+          "Undergo regular clinical breast examinations, especially after the age of 30, as advised by healthcare providers.",
+          "Discuss mammography with their doctor based on age, family history, and personal risk.",
+          "Encourage open conversations about breast health within families and communities.",
+        ],
+      },
+      {
+        type: "quote",
+        text:
+          "Breaking the silence around breast health is one of the most powerful forms of prevention.",
+      },
+      { type: "h2", text: "Our Experience at Ilmeza Foundation" },
+      {
+        type: "p",
+        text:
+          "At Ilmeza Foundation, breast cancer awareness is more than a campaign — it is a commitment to protecting women's health through education and community engagement. Over the past several years, our team has organized awareness programmes, community interactions, and health initiatives that have reached women from diverse backgrounds, including those in underserved and rural communities.",
+      },
+      {
+        type: "p",
+        text:
+          "During these programmes, we observed that many participants had never received reliable information about breast cancer. Several women believed that breast cancer always causes pain, while others felt that discussing breast health was socially uncomfortable. These conversations reinforced a crucial lesson: lack of awareness remains one of the greatest barriers to early diagnosis.",
+      },
+      {
+        type: "p",
+        text:
+          "Our awareness sessions focus not only on identifying symptoms but also on reducing stigma, encouraging timely medical consultation, promoting healthy lifestyles, and emphasizing that early detection can save lives.",
+      },
+      { type: "h2", text: "Breast Cancer Is Not Only a Medical Issue" },
+      {
+        type: "p",
+        text:
+          "Breast cancer affects families emotionally, socially, and economically. When a woman becomes ill, the impact extends beyond the individual. Families experience emotional distress, financial hardship, interruptions in children's education, and loss of household income. Supporting women through awareness, timely diagnosis, compassionate care, and community support therefore becomes an investment in stronger families and healthier communities.",
+      },
+      { type: "h2", text: "The Way Forward & A Message to Every Woman" },
+      {
+        type: "p",
+        text:
+          "Reducing the burden of breast cancer requires collective action. Healthcare professionals must continue promoting evidence-based screening and treatment. Governments must strengthen access to quality cancer care. Educational institutions should integrate health awareness into learning. Community organizations must continue reaching women who have limited access to reliable health information.",
+      },
+      {
+        type: "quote",
+        text:
+          "Your health matters. Do not ignore changes in your body. Do not allow fear to delay consultation. Do not let social stigma silence your concerns.",
+      },
+      {
+        type: "p",
+        text:
+          "Breast cancer is not always preventable, but its impact can be dramatically reduced through awareness, timely diagnosis, and appropriate treatment. Together, let us replace fear with knowledge, silence with conversation, and delay with early action. Because when awareness grows, hope grows — and with hope comes the possibility of saving countless lives.",
+      },
+    ],
+  },
+  {
     slug: "knowledge-awareness-empowered-india",
     title: "Knowledge Alone Cannot Change Society — Awareness Can",
     category: "Development",

@@ -1,15 +1,30 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { allArticles, getArticle, formatArticleDate } from "@/data/articles";
-import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2, Tag, Linkedin } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  User,
+  ArrowLeft,
+  ArrowRight,
+  Share2,
+  Tag,
+  Linkedin,
+  MessageCircle,
+  Copy,
+  Check,
+} from "lucide-react";
 
 const DEFAULT_TITLE = "Ilmeza Foundation — Building Hope. Creating Futures.";
 
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticle(slug) : undefined;
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
 
   // Set the browser tab title + share meta to this article's title.
   useEffect(() => {
@@ -32,6 +47,20 @@ const ArticlePage = () => {
       document.title = DEFAULT_TITLE;
     };
   }, [article]);
+
+  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+
+  const handleCopyLink = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      toast({
+        title: "Link Copied!",
+        description: "Article link has been copied to your clipboard.",
+      });
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
 
   if (!article) {
     return (
@@ -168,6 +197,48 @@ const ArticlePage = () => {
                     <Share2 size={15} className="mr-2" /> Contribute an Article
                   </Button>
                 </Link>
+              </div>
+
+              {/* Compact Share Option below Author Name */}
+              <div className="mt-6 pt-5 border-t border-border/40 flex flex-wrap items-center justify-between gap-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                  <Share2 size={13} className="text-accent" /> Share article:
+                </span>
+                <div className="flex items-center gap-2">
+                  {/* WhatsApp */}
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
+                      `*${article.title}*\n\n${article.excerpt}\n\n${currentUrl}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 transition-colors border border-[#25D366]/25"
+                    title="Share on WhatsApp"
+                  >
+                    <MessageCircle size={14} /> WhatsApp
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#0A66C2]/10 text-[#0A66C2] hover:bg-[#0A66C2]/20 transition-colors border border-[#0A66C2]/25"
+                    title="Share on LinkedIn"
+                  >
+                    <Linkedin size={14} /> LinkedIn
+                  </a>
+
+                  {/* Copy Link */}
+                  <button
+                    onClick={handleCopyLink}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-accent text-accent-foreground hover:bg-accent/90 transition-colors cursor-pointer"
+                    title="Copy article link"
+                  >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                    {copied ? "Copied!" : "Copy Link"}
+                  </button>
+                </div>
               </div>
             </div>
           </FadeIn>
