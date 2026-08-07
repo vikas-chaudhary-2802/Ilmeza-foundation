@@ -21,7 +21,7 @@ export const siteConfig = {
             bankLogo: "/logo_federal_bank.png"
         },
         contact: {
-            address: "Fourth Floor, Office No. T-06, B-10, Sector 2, Noida, Uttar Pradesh 201301",
+            address: "B-10, Sector - 2, Noida, Uttar Pradesh 201301",
             phone: "+91 8287007025",
             email: "ilmezaofficial@gmail.com",
             web3formsKey: "d6408c0e-340f-40b5-8fe1-3d957c487aef"

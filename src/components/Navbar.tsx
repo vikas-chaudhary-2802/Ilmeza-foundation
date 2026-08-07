@@ -37,12 +37,18 @@ const Navbar = () => {
       {/* Main nav */}
       <nav className="bg-white/95 backdrop-blur-md border-b border-border/50">
         <div className="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group shrink-0">
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img
               src={siteConfig.brand.logoPath}
               alt={siteConfig.brand.name}
               className="h-11 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105"
             />
+            <span
+              style={{ fontFamily: "'Fraunces', serif", color: "#1e3a8a" }}
+              className="hidden sm:block border-l-2 border-accent/30 pl-3 text-3xl md:text-4xl font-bold tracking-tight whitespace-nowrap"
+            >
+              Ilmeza Foundation
+            </span>
           </Link>
 
           {/* Desktop nav */}
