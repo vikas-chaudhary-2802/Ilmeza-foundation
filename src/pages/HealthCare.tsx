@@ -1,5 +1,6 @@
 import { siteConfig } from "@/data/siteConfig";
 import FadeIn from "@/components/FadeIn";
+import PinkOctoberCampaign from "@/components/PinkOctoberCampaign";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
@@ -31,6 +32,11 @@ const HealthCare = () => {
                 {healthCare.subtitle}
               </p>
               <p className="mt-5 text-primary/80 leading-relaxed max-w-xl">{healthCare.mission}</p>
+              <a href="#pink-october-2026" className="mt-6 flex w-fit items-center gap-3 border-l-2 border-[#bc175d] py-1 pl-4 text-sm font-semibold text-[#bc175d] hover:underline underline-offset-4">
+                <Ribbon size={18} className="shrink-0" aria-hidden="true" />
+                Pink October 2026: Explore the campaign
+                <ArrowRight size={16} className="shrink-0" aria-hidden="true" />
+              </a>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link to="/join">
                   <Button className="bg-accent text-accent-foreground hover:bg-accent/90 h-12 px-7 rounded-md text-base font-bold shadow-md">
@@ -59,6 +65,8 @@ const HealthCare = () => {
           </div>
         </div>
       </section>
+
+      <PinkOctoberCampaign />
 
       {/* ── Why it matters ── */}
       <section className="py-16 md:py-24">

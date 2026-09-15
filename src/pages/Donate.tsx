@@ -1,127 +1,426 @@
-import FadeIn from "@/components/FadeIn";
-import { siteConfig } from "@/data/siteConfig";
-import { ShieldCheck, ArrowLeft, ExternalLink, Copy, CheckCircle2 } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  Check,
+  CheckCircle2,
+  Copy,
+  CreditCard,
+  Heart,
+  IndianRupee,
+  Landmark,
+  Loader2,
+  LockKeyhole,
+  ShieldCheck,
+  Smartphone,
+} from "lucide-react";
+import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { siteConfig } from "@/data/siteConfig";
 import { useToast } from "@/hooks/use-toast";
+import { loadRazorpayCheckout, type RazorpayPaymentResponse } from "@/lib/razorpay";
+
+const PRESET_AMOUNTS = [500, 1000, 2500, 5000];
+
+type PaymentResult = {
+  amount: number;
+  paymentId: string;
+  captured: boolean;
+};
+
+const formatRupees = (amount: number) =>
+  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(amount);
 
 const Donate = () => {
-    const { toast } = useToast();
-    const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
+  const [amount, setAmount] = useState("1000");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [paymentResult, setPaymentResult] = useState<PaymentResult | null>(null);
 
-    const copyUpi = () => {
-        navigator.clipboard.writeText(siteConfig.brand.donate.upiId);
-        setCopied(true);
+  const copyUpi = async () => {
+    try {
+      await navigator.clipboard.writeText(siteConfig.brand.donate.upiId);
+      setCopied(true);
+      toast({
+        title: "UPI ID copied",
+        description: "You can paste it into any UPI payment app.",
+      });
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({
+        title: "Could not copy automatically",
+        description: `UPI ID: ${siteConfig.brand.donate.upiId}`,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePayment = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const donationAmount = Number(amount);
+
+    if (!Number.isFinite(donationAmount) || donationAmount < 10) {
+      toast({
+        title: "Enter a valid donation amount",
+        description: "The minimum online donation is INR 10.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setProcessing(true);
+
+    try {
+      const [checkoutLoaded, orderResponse] = await Promise.all([
+        loadRazorpayCheckout(),
+        fetch("/api/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: donationAmount, name, email, contact }),
+        }),
+      ]);
+
+      if (!checkoutLoaded || !window.Razorpay) {
+        throw new Error("Secure checkout could not load. Please check your connection and try again.");
+      }
+
+      const orderData = await orderResponse.json().catch(() => ({}));
+      if (!orderResponse.ok) {
+        throw new Error(orderData.error || "We could not start the payment. Please try again.");
+      }
+      if (!orderData.keyId || !orderData.orderId || typeof orderData.amount !== "number") {
+        throw new Error("Online donations are being configured. Please use the UPI option for now.");
+      }
+
+      const RazorpayCheckout = window.Razorpay;
+      const checkout = new RazorpayCheckout({
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: "INR",
+        name: siteConfig.brand.name,
+        description: "Supporting education, health and community care",
+        image: `${window.location.origin}${siteConfig.brand.logoPath}`,
+        order_id: orderData.orderId,
+        prefill: {
+          name: name.trim() || undefined,
+          email: email.trim() || undefined,
+          contact: contact.trim() || undefined,
+        },
+        notes: { purpose: `Donation to ${siteConfig.brand.name}` },
+        theme: { color: "#b43fc3" },
+        retry: { enabled: true },
+        modal: {
+          ondismiss: () => setProcessing(false),
+        },
+        handler: async (razorpayResponse: RazorpayPaymentResponse) => {
+          try {
+            const verifyResponse = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(razorpayResponse),
+            });
+            const verifyData = await verifyResponse.json().catch(() => ({}));
+
+            if (!verifyResponse.ok || !verifyData.verified) {
+              setPaymentResult({
+                amount: donationAmount,
+                paymentId: razorpayResponse.razorpay_payment_id,
+                captured: false,
+              });
+              toast({
+                title: "Payment received, confirmation pending",
+                description: `Please keep payment ID ${razorpayResponse.razorpay_payment_id}.`,
+              });
+              return;
+            }
+
+            setPaymentResult({
+              amount: verifyData.amount / 100,
+              paymentId: verifyData.paymentId,
+              captured: verifyData.captured,
+            });
+            toast({
+              title: "Thank you for your donation",
+              description: "Your Razorpay payment has been securely verified.",
+            });
+          } catch {
+            setPaymentResult({
+              amount: donationAmount,
+              paymentId: razorpayResponse.razorpay_payment_id,
+              captured: false,
+            });
+          } finally {
+            setProcessing(false);
+          }
+        },
+      });
+
+      checkout.on("payment.failed", (failure) => {
+        setProcessing(false);
         toast({
-            title: "UPI ID Copied",
-            description: "You can now paste it in your payment app.",
+          title: "Payment was not completed",
+          description: failure.error?.description || "No amount was charged. Please try again.",
+          variant: "destructive",
         });
-        setTimeout(() => setCopied(false), 2000);
-    };
+      });
 
-    return (
-        <main className="min-h-screen bg-primary pt-28 pb-20 overflow-hidden relative">
-            {/* Decorative Background */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-navy-light rounded-full blur-[120px]" />
+      checkout.open();
+    } catch (error) {
+      setProcessing(false);
+      toast({
+        title: "Razorpay is not available yet",
+        description: error instanceof Error ? error.message : "Please use the UPI option below.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-[hsl(226,40%,98%)] pt-20">
+      <section className="relative overflow-hidden bg-navy-gradient text-white">
+        <div className="absolute inset-0 brand-dots opacity-10" />
+        <div className="absolute inset-y-0 right-0 w-1/2 border-l border-white/5 bg-white/[0.02]" />
+
+        <div className="container relative z-10 mx-auto grid items-center gap-12 px-4 py-14 lg:grid-cols-[0.82fr_1.18fr] lg:px-8 lg:py-20">
+          <FadeIn direction="right">
+            <Link
+              to="/"
+              className="mb-10 flex w-fit items-center gap-2 text-sm font-semibold text-white/60 transition-colors hover:text-cyan"
+            >
+              <ArrowLeft size={17} /> Back to Home
+            </Link>
+
+            <span className="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan">
+              <Heart className="h-4 w-4 fill-current" /> Support Our Mission
+            </span>
+            <h1 className="max-w-xl text-4xl font-extrabold leading-[1.08] md:text-5xl lg:text-6xl">
+              A small act can shape a lifetime.
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/70">
+              Your contribution helps Ilmeza Foundation bring education, preventive healthcare and
+              opportunity to communities that need them most.
+            </p>
+
+            <div className="mt-9 grid max-w-lg grid-cols-2 gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
+              <div className="bg-primary/70 p-4">
+                <ShieldCheck className="mb-2 h-5 w-5 text-cyan" />
+                <p className="text-sm font-semibold">Secure checkout</p>
+                <p className="mt-1 text-xs text-white/55">Powered by Razorpay</p>
+              </div>
+              <div className="bg-primary/70 p-4">
+                <Landmark className="mb-2 h-5 w-5 text-cyan" />
+                <p className="text-sm font-semibold">Direct support</p>
+                <p className="mt-1 text-xs text-white/55">To the foundation</p>
+              </div>
             </div>
+          </FadeIn>
 
-            <div className="container mx-auto px-4 relative z-10">
-                <Link to="/" className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-accent transition-colors mb-12 group">
-                    <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
-                    Back to Home
-                </Link>
-
-                <div className="max-w-5xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-                        <FadeIn direction="right">
-                            <div>
-                                <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold tracking-widest uppercase mb-6">
-                                    Support Our Mission
-                                </span>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground leading-tight mb-8">
-                                    Your Contribution <br />
-                                    <span className="text-gradient-gold italic">Changes Lives.</span>
-                                </h1>
-                                <p className="text-xl text-primary-foreground/70 font-light leading-relaxed mb-10 max-w-lg">
-                                    Every donation directly funds our education, healthcare, and skill development programs. Together, we can build a more just and inclusive society.
-                                </p>
-
-                                <div className="space-y-6">
-                                    <div className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                                        <ShieldCheck className="text-cyan w-8 h-8 shrink-0 mt-1" />
-                                        <div>
-                                            <h3 className="text-white font-bold text-lg mb-1">Secure &amp; Transparent</h3>
-                                            <p className="text-white/70 text-sm">Your donations go directly to the foundation's official {siteConfig.brand.donate.bankName} account.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </FadeIn>
-
-                        <FadeIn direction="left" delay={0.2}>
-                            <div className="relative">
-                                {/* QR Display Card */}
-                                <div className="p-1 glass-card rounded-[3rem] border-white/20 bg-white/10 backdrop-blur-3xl shadow-2xl relative overflow-hidden group">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-                                    <div className="bg-white p-8 rounded-[2.5rem] relative z-10">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <img src={siteConfig.brand.logoPath} alt="Ilmeza" className="h-8 object-contain" />
-                                            <img src={siteConfig.brand.donate.bankLogo} alt="Federal Bank" className="h-6 object-contain" />
-                                        </div>
-
-                                        <div className="relative aspect-square mb-8 rounded-2xl overflow-hidden border-2 border-slate-100 p-4">
-                                            <img
-                                                src={siteConfig.brand.donate.qrPath}
-                                                alt="Donation QR Code"
-                                                className="w-full h-full object-contain"
-                                            />
-                                        </div>
-
-                                        <div className="space-y-4">
-                                            <div
-                                                onClick={copyUpi}
-                                                className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition-all group/upi"
-                                            >
-                                                <div>
-                                                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">UPI ID</p>
-                                                    <p className="font-mono text-sm font-bold text-slate-800">{siteConfig.brand.donate.upiId}</p>
-                                                </div>
-                                                {copied ? (
-                                                    <CheckCircle2 size={18} className="text-green-500" />
-                                                ) : (
-                                                    <Copy size={18} className="text-slate-400 group-hover/upi:text-accent transition-colors" />
-                                                )}
-                                            </div>
-
-                                            <div className="text-center pt-2">
-                                                <p className="text-xs font-bold text-slate-400 tracking-widest uppercase">Scan to pay with any app</p>
-                                                <div className="flex justify-center gap-4 mt-4 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" className="h-4" alt="UPI" />
-                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/1200px-Google_Pay_Logo.svg.png" className="h-4" alt="GPay" />
-                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/1200px-Paytm_Logo_%28standalone%29.svg.png" className="h-4" alt="Paytm" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Counterpart for mobile hint */}
-                                <p className="text-center mt-6 text-primary-foreground/40 text-sm font-light italic">
-                                    Take a screenshot and scan from your gallery in any UPI app.
-                                </p>
-                            </div>
-                        </FadeIn>
-
-                    </div>
+          <FadeIn direction="left" delay={0.12}>
+            <div className="mx-auto max-w-xl rounded-2xl border border-white/15 bg-white p-6 text-primary shadow-2xl md:p-9">
+              {paymentResult ? (
+                <div className="flex min-h-[520px] flex-col items-center justify-center text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-cyan/10 text-cyan">
+                    <Check className="h-10 w-10" strokeWidth={3} />
+                  </div>
+                  <p className="mt-7 text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                    {paymentResult.captured ? "Donation confirmed" : "Payment received"}
+                  </p>
+                  <h2 className="mt-3 text-3xl font-bold text-primary">Thank you for standing with us.</h2>
+                  <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
+                    Your contribution of INR {formatRupees(paymentResult.amount)} helps turn care and
+                    opportunity into real, lasting change.
+                  </p>
+                  {!paymentResult.captured && (
+                    <p className="mt-4 max-w-sm rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                      Razorpay is completing the final confirmation. Keep the payment ID below for your records.
+                    </p>
+                  )}
+                  <div className="mt-7 w-full max-w-sm rounded-lg border border-border bg-muted/60 px-4 py-3 text-left">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Payment ID</p>
+                    <p className="mt-1 break-all font-mono text-sm font-semibold text-primary">{paymentResult.paymentId}</p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="mt-7 h-11 border-primary/20 px-6 font-bold text-primary hover:bg-primary hover:text-white"
+                    onClick={() => setPaymentResult(null)}
+                  >
+                    Make another donation
+                  </Button>
                 </div>
+              ) : (
+                <form onSubmit={handlePayment}>
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Donate securely</p>
+                      <h2 className="mt-2 text-2xl font-bold text-primary md:text-3xl">Choose your contribution</h2>
+                    </div>
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-white">
+                      <LockKeyhole className="h-5 w-5" />
+                    </div>
+                  </div>
+
+                  <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    {PRESET_AMOUNTS.map((preset) => (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => setAmount(String(preset))}
+                        className={`h-12 rounded-md border text-sm font-bold transition-colors ${
+                          amount === String(preset)
+                            ? "border-accent bg-accent text-white shadow-md shadow-accent/20"
+                            : "border-border bg-white text-primary hover:border-accent/50 hover:bg-accent/5"
+                        }`}
+                      >
+                        INR {formatRupees(preset)}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-5">
+                    <Label htmlFor="donation-amount" className="text-sm font-bold text-primary">
+                      Or enter another amount
+                    </Label>
+                    <div className="relative mt-2">
+                      <IndianRupee className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        id="donation-amount"
+                        type="number"
+                        inputMode="numeric"
+                        min="10"
+                        max="500000"
+                        step="1"
+                        value={amount}
+                        onChange={(event) => setAmount(event.target.value)}
+                        className="h-12 pl-10 text-base font-semibold"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <Label htmlFor="donor-name" className="text-sm font-semibold text-primary">Name</Label>
+                      <Input
+                        id="donor-name"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        className="mt-2 h-11"
+                        autoComplete="name"
+                        placeholder="Your full name"
+                        maxLength={80}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="donor-email" className="text-sm font-semibold text-primary">Email</Label>
+                      <Input
+                        id="donor-email"
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        className="mt-2 h-11"
+                        autoComplete="email"
+                        placeholder="you@example.com"
+                        maxLength={254}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="donor-phone" className="text-sm font-semibold text-primary">Phone</Label>
+                      <Input
+                        id="donor-phone"
+                        type="tel"
+                        value={contact}
+                        onChange={(event) => setContact(event.target.value)}
+                        className="mt-2 h-11"
+                        autoComplete="tel"
+                        placeholder="10-digit number"
+                        maxLength={20}
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={processing}
+                    className="mt-7 w-full bg-accent px-6 py-6 text-base font-bold text-white shadow-lg shadow-accent/20 hover:bg-accent/90"
+                  >
+                    {processing ? (
+                      <><Loader2 className="h-5 w-5 animate-spin" /> Opening secure checkout</>
+                    ) : (
+                      <><LockKeyhole className="h-5 w-5" /> Donate INR {formatRupees(Number(amount) || 0)}</>
+                    )}
+                  </Button>
+
+                  <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5"><Smartphone className="h-3.5 w-3.5" /> UPI</span>
+                    <span className="inline-flex items-center gap-1.5"><CreditCard className="h-3.5 w-3.5" /> Cards</span>
+                    <span className="inline-flex items-center gap-1.5"><Landmark className="h-3.5 w-3.5" /> Netbanking</span>
+                  </div>
+                  <p className="mt-4 text-center text-[11px] leading-relaxed text-muted-foreground">
+                    Payments are processed by Razorpay. Ilmeza Foundation never receives or stores your card or UPI PIN.
+                  </p>
+                </form>
+              )}
             </div>
-        </main>
-    );
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-[1fr_0.75fr]">
+            <FadeIn direction="right">
+              <span className="section-eyebrow">Prefer paying directly?</span>
+              <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Scan and donate with any UPI app.</h2>
+              <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
+                The foundation's existing UPI option remains available. Scan the official QR code or copy the UPI ID below.
+              </p>
+
+              <button
+                type="button"
+                onClick={copyUpi}
+                className="mt-7 flex w-full max-w-md items-center justify-between rounded-lg border border-border bg-white p-4 text-left shadow-sm transition-colors hover:border-accent/40"
+              >
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.17em] text-muted-foreground">Official UPI ID</span>
+                  <span className="mt-1 block font-mono text-sm font-bold text-primary">{siteConfig.brand.donate.upiId}</span>
+                </span>
+                {copied ? <CheckCircle2 className="h-5 w-5 text-cyan" /> : <Copy className="h-5 w-5 text-accent" />}
+              </button>
+
+              <div className="mt-7 flex items-start gap-3 text-sm text-primary/75">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-cyan" />
+                <p>
+                  Before confirming, verify that your payment app shows the foundation's official {siteConfig.brand.donate.bankName} account.
+                </p>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="left" delay={0.1}>
+              <div className="mx-auto max-w-sm rounded-2xl border border-border bg-white p-6 shadow-xl shadow-primary/10">
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <img src={siteConfig.brand.logoPath} alt={siteConfig.brand.name} className="h-9 w-auto object-contain" />
+                  <img src={siteConfig.brand.donate.bankLogo} alt={siteConfig.brand.donate.bankName} className="h-6 w-auto object-contain" />
+                </div>
+                <div className="aspect-square overflow-hidden rounded-lg border border-border bg-white p-3">
+                  <img src={siteConfig.brand.donate.qrPath} alt="Ilmeza Foundation donation QR code" className="h-full w-full object-contain" />
+                </div>
+                <p className="mt-4 text-center text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                  Scan to support our work
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default Donate;

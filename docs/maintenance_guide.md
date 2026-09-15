@@ -55,6 +55,7 @@ We have implemented **High-Contrast Glassmorphism**. If you notice text becoming
 To update the organization's email, social media handles, or donation QR:
 - **Email, Socials & Forms**: Modify the `brand` section in `siteConfig.ts`. This includes the `web3formsKey` for your contact forms.
 - **Donation QR**: Update the `donate` section in `siteConfig.ts`. Replace the `qrPath` with your new image path and update the `upiId` as needed.
+- **Razorpay**: Store `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` as server-side Vercel environment variables. Use Test Mode keys first, enable automatic capture in Razorpay, then switch to Live Mode keys after testing. Never expose the key secret in frontend code or in a `VITE_` variable.
 
 ---
 *Developed by Senior Engineering & Founder Team (30+ years XP)*

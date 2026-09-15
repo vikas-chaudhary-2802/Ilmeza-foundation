@@ -24,6 +24,7 @@ Education, Health, Environment, and Legal Awareness. This is a single-page React
 | Animations         | framer-motion                 |
 | Icons              | lucide-react                  |
 | Forms (email)      | Web3Forms (no backend needed) |
+| Payments           | Razorpay Standard Checkout + Vercel Functions |
 | Hosting            | Vercel (`vercel.json` present)|
 
 ---
@@ -69,7 +70,7 @@ Ilmeza-foundation/
 │  │  ├─ ArticlePage.tsx       # Single article (route: /knowledge-hub/:slug)
 │  │  ├─ Publish.tsx           # Submit an article
 │  │  ├─ Contact.tsx           # Contact form
-│  │  ├─ Donate.tsx            # Donation info + QR
+│  │  ├─ Donate.tsx            # Razorpay donation checkout + UPI QR
 │  │  ├─ PrivacyPolicy.tsx     # /privacy
 │  │  └─ Terms.tsx             # /terms
 │  │
@@ -87,6 +88,7 @@ Ilmeza-foundation/
 │
 ├─ tailwind.config.ts          # Tailwind + custom colour tokens
 ├─ vite.config.ts              # build config
+├─ api/                        # secure Razorpay order + verification endpoints
 └─ vercel.json                 # deployment (SPA routing) config
 ```
 
@@ -97,6 +99,20 @@ Ilmeza-foundation/
 ### a) Change contact details, socials, donation info, phone/email
 Edit **`src/data/siteConfig.ts`**. Everything is grouped under `brand` (contact, socials, donate)
 and `home` / `about` / `healthCare` for page content.
+
+### Razorpay setup
+
+The donation page uses Razorpay Standard Checkout. Add these two **server-side** environment variables
+in Vercel under Project Settings → Environment Variables:
+
+```sh
+RAZORPAY_KEY_ID=rzp_test_...
+RAZORPAY_KEY_SECRET=...
+```
+
+Start with Test Mode keys, deploy, and complete a test payment. When the flow is verified, replace them
+with Live Mode keys and redeploy. Enable automatic payment capture in the Razorpay dashboard. Never add
+the key secret to `siteConfig.ts`, client code, or a variable beginning with `VITE_`.
 
 ### b) Add a new blog article (Knowledge Hub)
 Open **`src/data/articles.ts`** and add one object to the `articles` array. Articles are sorted

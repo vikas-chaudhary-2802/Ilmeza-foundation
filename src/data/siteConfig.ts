@@ -218,6 +218,28 @@ export const siteConfig = {
         title: "Ilmeza Women Health Initiative",
         subtitle: "Empowering Women Through Health Awareness & Early Detection",
         mission: "At Ilmeza Foundation, we believe that a healthy woman builds a healthy family, and a healthy family builds a strong nation. The Ilmeza Women Health Initiative is our dedicated effort to improve women’s health outcomes through awareness, early diagnosis, and preventive care.",
+        pinkOctober: {
+            label: "Pink October 2026",
+            campCount: 10,
+            tagline: "Early Detection Saves Lives",
+            title: "10 Free Breast Cancer Screening Camps Across Delhi NCR",
+            description: "This October, Ilmeza Foundation is taking early detection closer to women across Delhi NCR through free screening, trusted guidance, and compassionate support.",
+            poster: "/images/healthcare/pink-october-2026.jpg",
+            callout: "Because Every Woman Matters",
+            promise: "Healthy women. Stronger communities. Brighter tomorrows.",
+            facts: [
+                { label: "Based in", value: "Noida" },
+                { label: "Serving", value: "Delhi NCR" },
+                { label: "Campaign", value: "October 2026" }
+            ],
+            services: [
+                "Free screening camps",
+                "Awareness sessions",
+                "Education and guidance",
+                "Counselling and support",
+                "Referral assistance"
+            ]
+        },
         importance: {
             title: "Why This Initiative Matters",
             description: "In India, breast cancer and cervical cancer are among the most common causes of death among women. What makes the situation more concerning is the lack of awareness, late diagnosis, and limited access to healthcare in many communities.",
