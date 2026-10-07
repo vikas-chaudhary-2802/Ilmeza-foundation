@@ -5,6 +5,7 @@ import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { useCountUp } from "@/hooks/useCountUp";
 import { siteConfig } from "@/data/siteConfig";
+import { PinkOctoberNotice } from "@/components/PinkOctoberEvents";
 import {
   BookOpen, HeartPulse, Leaf, Scale, ArrowRight, Heart, HandHeart,
   Users, Sparkles, Quote, Stethoscope, TreePine, ArrowUpRight,
@@ -187,6 +188,8 @@ const Index = () => {
           ))}
         </div>
       </section>
+
+      <PinkOctoberNotice />
 
       {/* Quick stat strip */}
       <section className="bg-primary text-white">
@@ -406,7 +409,7 @@ const Index = () => {
           </FadeIn>
           <div className="grid md:grid-cols-3 gap-7">
             {[
-              { img: "/images/gallery/health-awareness.jpg", tag: "Health", title: "Women's Health Camp Reaches Hundreds of Women", excerpt: "Our latest awareness session brought screening and open conversation to a community hall full of women.", to: "/events" },
+              { img: "/images/healthcare/nsic-2026-10-06-1.webp", tag: "Pink October", title: "Breast Health Awareness Comes to NSIC, New Delhi", excerpt: "Our 6 October session brought women together for self-examination guidance, questions, and an open conversation about breast health.", to: "/events#pink-october-events" },
               { img: "/images/gallery/outreach-3.jpg", tag: "Outreach", title: "Ration & Relief Drive Supports Families in Need", excerpt: "Volunteers distributed food packets and essentials to daily-wage workers across the city.", to: "/events" },
               { img: "/images/Tree-volution/341cbe32-fa37-4619-858f-3f74129e16fd.JPG", tag: "Environment", title: "Tree-Volution Greens Another Neighbourhood", excerpt: "A single plantation drive grows into a self-sustaining community movement.", to: "/tree-volution" },
             ].map((s, i) => (

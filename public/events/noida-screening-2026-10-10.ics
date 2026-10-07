@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ilmeza Foundation//Pink October 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:pink-october-noida-20261010@ilmeza.com
+DTSTAMP:20261007T000000Z
+DTSTART:20261010T063000Z
+DTEND:20261010T113000Z
+SUMMARY:Ilmeza Free Breast Cancer Screening Camp
+LOCATION:Max Multi Speciality Centre\, A-364\, Sector 19\, Noida
+DESCRIPTION:Ilmeza Foundation in association with Max Healthcare.\n
+ All services free. Walk-ins welcome.\nCall +91 9718776830 for enquiries.
+URL:https://www.ilmeza.com/health-care#pink-october-events
+END:VEVENT
+END:VCALENDAR

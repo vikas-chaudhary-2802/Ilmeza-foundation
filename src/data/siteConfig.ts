@@ -228,7 +228,7 @@ export const siteConfig = {
             callout: "Because Every Woman Matters",
             promise: "Healthy women. Stronger communities. Brighter tomorrows.",
             facts: [
-                { label: "Based in", value: "Noida" },
+                { label: "Campaign reach goal", value: "1,000+ women" },
                 { label: "Serving", value: "Delhi NCR" },
                 { label: "Campaign", value: "October 2026" }
             ],

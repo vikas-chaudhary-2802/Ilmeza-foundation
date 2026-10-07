@@ -3,6 +3,7 @@ import { Calendar, MapPin, Clock, ArrowRight, CheckCircle2, Sparkles, Heart, Han
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import FadeIn from "@/components/FadeIn";
+import PinkOctoberEvents from "@/components/PinkOctoberEvents";
 import breastCancerPhoto1 from "@/assets/breast-cancer-conference-1.jpeg";
 import breastCancerPhoto2 from "@/assets/breast-cancer-conference-2.jpeg";
 import breastCancerPhoto3 from "@/assets/breast-cancer-conference-3.jpeg";
@@ -103,6 +104,8 @@ export default function Events() {
           </FadeIn>
         </div>
       </section>
+
+      <PinkOctoberEvents />
 
       {/* Event recaps */}
       <section className="py-20 md:py-28">

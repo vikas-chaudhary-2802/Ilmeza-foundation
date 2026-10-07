@@ -9,6 +9,7 @@ import {
   Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import { siteConfig } from "@/data/siteConfig";
+import PinkOctoberEvents from "./PinkOctoberEvents";
 import styles from "./PinkOctoberCampaign.module.css";
 
 const serviceIcons = [Stethoscope, Users, BookOpen, HandHeart, Route];
@@ -35,7 +36,7 @@ export default function PinkOctoberCampaign() {
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.65 }}
           >
-            <p className={styles.eyebrow}>A month of awareness. A lifetime of care.</p>
+            <p className={styles.eyebrow}>PINK 1000 / A month of awareness. A lifetime of care.</p>
             <h2 id="pink-october-title" className={styles.title}>
               <span>Pink</span> October<span className={styles.period}>.</span>
             </h2>
@@ -45,7 +46,7 @@ export default function PinkOctoberCampaign() {
             <div className={styles.commitment}>
               <span className={styles.campCount}>{campaign.campCount}</span>
               <div>
-                <h3>Free breast cancer<br />screening camps</h3>
+                <h3>Free breast cancer<br />screening camps planned</h3>
                 <p><MapPin size={15} aria-hidden="true" /> Across Delhi NCR</p>
               </div>
             </div>
@@ -76,8 +77,8 @@ export default function PinkOctoberCampaign() {
                   </a>
                 </DialogContent>
               </Dialog>
-              <a className={styles.textAction} href="#pink-october-care">
-                Explore the initiative <ArrowDown size={16} aria-hidden="true" />
+              <a className={styles.textAction} href="#pink-october-events">
+                See camps & updates <ArrowDown size={16} aria-hidden="true" />
               </a>
             </div>
             <p className={styles.supportingNote}>For women. For families. For healthier communities.</p>
@@ -134,6 +135,8 @@ export default function PinkOctoberCampaign() {
           ))}
         </dl>
       </div>
+
+      <PinkOctoberEvents />
 
       <div id="pink-october-care" className={styles.care}>
         <div className={styles.inner}>
